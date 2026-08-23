@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Club de Ciencias</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Club de Ciencias</h1>
+
+        <p class="subtitulo">
+            Sistema de gestión de componentes
+        </p>
+
+
+        <!-- ========================= -->
+        <!-- COMPONENTES -->
+        <!-- ========================= -->
+
+        <h2>Componentes disponibles</h2>
+
+        <div class="componentes">
+
+            {% for c in componentes %}
+
+            <div class="componente">
+
+                <strong>
+                    {{ c.nombre }}
+                </strong>
+
+                <span>
+                    Stock: {{ c.stock }}
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- PRÉSTAMOS -->
+        <!-- ========================= -->
+
+        <h2>Préstamos registrados</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Alumno</th>
+
+                    <th>Componente</th>
+
+                    <th>Fecha de retiro</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for p in prestamos %}
+
+                <tr>
+
+                    <td>
+                        {{ p.alumno_nom }}
+                        {{ p.alumno_ape }}
+                    </td>
+
+                    <td>
+                        {{ p.componente_nom }}
+                    </td>
+
+                    <td>
+                        {{ p.fecha_retiro }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        <!-- ========================= -->
+        <!-- BOTÓN -->
+        <!-- ========================= -->
+
+        <a href="{{ url_for('nuevo_prestamo') }}">
+
+            <button>
+                + Registrar nuevo préstamo
+            </button>
+
+        </a>
+
+    </div>
+
+</body>
+
+</html>

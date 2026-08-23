@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Nuevo préstamo</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Registrar préstamo</h1>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('nuevo_prestamo') }}"
+        >
+
+
+            <!-- ========================= -->
+            <!-- ALUMNO -->
+            <!-- ========================= -->
+
+            <label for="alumno">
+                Alumno
+            </label>
+
+            <select
+                name="alumno"
+                id="alumno"
+                required
+            >
+
+                <option value="">
+                    Seleccionar alumno
+                </option>
+
+                {% for a in alumnos %}
+
+                <option value="{{ a.dni }}">
+
+                    {{ a.nombre }}
+                    {{ a.apellido }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- ========================= -->
+            <!-- COMPONENTE -->
+            <!-- ========================= -->
+
+            <label for="componente">
+                Componente
+            </label>
+
+            <select
+                name="componente"
+                id="componente"
+                required
+            >
+
+                <option value="">
+                    Seleccionar componente
+                </option>
+
+                {% for c in componentes %}
+
+                <option value="{{ c.id_componente }}">
+
+                    {{ c.nombre }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- ========================= -->
+            <!-- FECHA -->
+            <!-- ========================= -->
+
+            <label for="fecha_retiro">
+                Fecha de retiro
+            </label>
+
+            <input
+                type="date"
+                name="fecha_retiro"
+                id="fecha_retiro"
+                required
+            >
+
+
+            <!-- ========================= -->
+            <!-- BOTONES -->
+            <!-- ========================= -->
+
+            <button type="submit">
+                Confirmar préstamo
+            </button>
+
+            <a href="{{ url_for('index') }}">
+
+                <button
+                    type="button"
+                    class="cancelar"
+                >
+                    Cancelar
+                </button>
+
+            </a>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
