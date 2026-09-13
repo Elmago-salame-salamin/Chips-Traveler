@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Club de Ciencias</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+
+<body>
+
+    <h1>Sistema de Gestión Club de Ciencias</h1>
+
+    <a href="/nuevo_prestamo">
+        <button>Registrar Nuevo Préstamo</button>
+    </a>
+
+    <h2>Inventario de Componentes</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for comp in componentes %}
+            <tr>
+                <td>{{ comp.id_componente }}</td>
+                <td>{{ comp.nombre }}</td>
+                <td>{{ comp.descripcion }}</td>
+                <td>{{ comp.stock }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Préstamos Activos</h2>
+
+    <ul>
+        {% for pres in prestamos %}
+        <li>
+            <strong>{{ pres.alumno_nom }} {{ pres.alumno_ape }}</strong>
+            retiró
+            <em>{{ pres.componente_nom }}</em>
+            el día
+            {{ pres.fecha_retiro }}
+
+            {% if pres.fecha_devolucion %}
+                Devuelto: {{ pres.fecha_devolucion }}
+            {% else %}
+                <span style="color:red;">
+                    Pendiente de devolución
+                </span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

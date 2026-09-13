@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveler - Descubrí Córdoba</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Nuestro CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+    <nav class="navbar navbar-expand-lg navbar-traveler">
+        <div class="container">
+            <!-- LOGO -->
+            <a class="navbar-brand logo" href="/">
+                <span class="logo-icon"><i class="bi bi-compass"></i></span>
+                <span>Traveler</span>
+            </a>
+
+            <!-- BOTÓN MOBILE -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- MENÚ -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lugares">Explorar lugares</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#categorias">Categorías</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="#" class="btn btn-outline-light btn-login">Iniciar sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-content">
+            <div class="row">
+                <div class="col-lg-8">
+                    <span class="hero-tag">DESCUBRÍ CÓRDOBA</span>
+                    <h1>Encontrá tu próximo <span>lugar favorito</span></h1>
+                    <p class="hero-description">
+                        Hoteles, restaurantes, atracciones y experiencias para disfrutar de Córdoba.
+                    </p>
+                </div>
+            </div>
+
+            <!-- =================================================
+                 BUSCADOR
+            ================================================= -->
+            <div class="search-box">
+                <div class="row g-0">
+                    <!-- ¿QUÉ BUSCÁS? -->
+                    <div class="col-lg-4 search-field">
+                        <label>
+                            <i class="bi bi-search"></i> ¿Qué estás buscando?
+                        </label>
+                        <select class="form-select">
+                            <option selected>Elegí un tipo de lugar</option>
+                            <option>Hoteles</option>
+                            <option>Restaurantes</option>
+                            <option>Atracciones</option>
+                        </select>
+                    </div>
+
+                    <!-- UBICACIÓN -->
+                    <div class="col-lg-3 search-field">
+                        <label>
+                            <i class="bi bi-geo-alt"></i> Ubicación
+                        </label>
+                        <input type="text" class="form-control" placeholder="Córdoba">
+                    </div>
+
+                    <!-- FECHA -->
+                    <div class="col-lg-3 search-field">
+                        <label>
+                            <i class="bi bi-calendar3"></i> Fecha
+                        </label>
+                        <input type="date" class="form-control">
+                    </div>
+
+                    <!-- BOTÓN -->
+                    <div class="col-lg-2 search-button-container">
+                        <a href="/lugares" class="btn search-button">
+                            Buscar <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         CATEGORÍAS
+    ===================================================== -->
+    <section class="categories-section" id="categorias">
+        <div class="container">
+            <div class="section-heading">
+                <span>EXPLORÁ CÓRDOBA</span>
+                <h2>¿Qué estás buscando?</h2>
+                <p>Encontrá el lugar perfecto para tu próxima salida.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- HOTEL -->
+                <div class="col-md-4">
+                    <a href="/lugares?categoria=hotel" class="category-card">
+                        <div class="category-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div>
+                            <h3>Hoteles</h3>
+                            <p>Encontrá el alojamiento ideal para tu estadía.</p>
+                        </div>
+                        <i class="bi bi-arrow-right category-arrow"></i>
+                    </a>
+                </div>
+
+                <!-- RESTAURANTES -->
+                <div class="col-md-4">
+                    <a href="/lugares?categoria=restaurante" class="category-card">
+                        <div class="category-icon">
+                            <i class="bi bi-cup-hot"></i>
+                        </div>
+                        <div>
+                            <h3>Restaurantes</h3>
+                            <p>Descubrí nuevos sabores y lugares para comer.</p>
+                        </div>
+                        <i class="bi bi-arrow-right category-arrow"></i>
+                    </a>
+                </div>
+
+                <!-- ATRACCIONES -->
+                <div class="col-md-4">
+                    <a href="/lugares?categoria=atraccion" class="category-card">
+                        <div class="category-icon">
+                            <i class="bi bi-stars"></i>
+                        </div>
+                        <div>
+                            <h3>Atracciones</h3>
+                            <p>Conocé parques y lugares para disfrutar.</p>
+                        </div>
+                        <i class="bi bi-arrow-right category-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         DESTACADOS
+    ===================================================== -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-heading featured-heading">
+                <div>
+                    <span>RECOMENDADOS</span>
+                    <h2>Lugares para descubrir</h2>
+                </div>
+                <a href="/lugares" class="see-all">
+                    Ver todos <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="row g-4">
+                <!-- LUGAR 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="featured-card">
+                        <div class="featured-image hotel-image">
+                            <span class="featured-badge">Hotel</span>
+                            <i class="bi bi-building featured-icon"></i>
+                        </div>
+                        <div class="featured-info">
+                            <h3>La Casa del Ceibo</h3>
+                            <p class="location">
+                                <i class="bi bi-geo-alt"></i> Córdoba, Argentina
+                            </p>
+                            <div class="featured-footer">
+                                <span class="rating">
+                                    <i class="bi bi-star-fill"></i> 4.8
+                                </span>
+                                <a href="/lugar/1">
+                                    Ver lugar <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LUGAR 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="featured-card">
+                        <div class="featured-image restaurant-image">
+                            <span class="featured-badge">Restaurante</span>
+                            <i class="bi bi-cup-hot featured-icon"></i>
+                        </div>
+                        <div class="featured-info">
+                            <h3>Santa Calma</h3>
+                            <p class="location">
+                                <i class="bi bi-geo-alt"></i> Córdoba, Argentina
+                            </p>
+                            <div class="featured-footer">
+                                <span class="rating">
+                                    <i class="bi bi-star-fill"></i> 4.7
+                                </span>
+                                <a href="/lugar/5">
+                                    Ver lugar <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LUGAR 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="featured-card">
+                        <div class="featured-image park-image">
+                            <span class="featured-badge">Atracción</span>
+                            <i class="bi bi-water featured-icon"></i>
+                        </div>
+                        <div class="featured-info">
+                            <h3>Infinito Water Park</h3>
+                            <p class="location">
+                                <i class="bi bi-geo-alt"></i> Córdoba, Argentina
+                            </p>
+                            <div class="featured-footer">
+                                <span class="rating">
+                                    <i class="bi bi-star-fill"></i> 4.6
+                                </span>
+                                <a href="/lugar/8">
+                                    Ver lugar <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         CTA
+    ===================================================== -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <div>
+                    <span>TU PRÓXIMA EXPERIENCIA</span>
+                    <h2>Córdoba tiene mucho para ofrecer.</h2>
+                    <p>Explorá nuestros lugares y empezá a planificar tu próxima salida.</p>
+                </div>
+                <a href="/lugares" class="btn cta-button">
+                    Explorar lugares <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 mb-4">
+                    <div class="footer-logo">
+                        <i class="bi bi-compass"></i> Traveler
+                    </div>
+                    <p>Tu guía para descubrir lugares, experiencias y actividades en Córdoba.</p>
+                </div>
+
+                <div class="col-6 col-lg-3">
+                    <h4>Explorar</h4>
+                    <a href="/lugares">Lugares</a>
+                    <a href="/lugares?categoria=hotel">Hoteles</a>
+                    <a href="/lugares?categoria=restaurante">Restaurantes</a>
+                    <a href="/lugares?categoria=atraccion">Atracciones</a>
+                </div>
+
+                <div class="col-6 col-lg-4">
+                    <h4>Traveler</h4>
+                    <a href="#">Sobre nosotros</a>
+                    <a href="#">Contacto</a>
+                    <a href="#">Términos y condiciones</a>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-bottom">
+                <span>© 2026 Traveler</span>
+                <span>Córdoba, Argentina</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

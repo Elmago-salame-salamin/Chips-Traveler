@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Préstamo</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+
+<body>
+
+    <h1>Registrar Préstamo</h1>
+
+    <form action="/nuevo_prestamo" method="POST">
+
+        <label for="alumno">
+            Seleccionar Alumno:
+        </label>
+
+        <select name="alumno" id="alumno" required>
+            {% for alu in alumnos %}
+            <option value="{{ alu.dni }}">
+                {{ alu.apellido }}, {{ alu.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label for="componente">
+            Componente a Retirar:
+        </label>
+
+        <select name="componente" id="componente" required>
+            {% for comp in componentes %}
+            <option value="{{ comp.id_componente }}">
+                {{ comp.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label for="fecha_retiro">
+            Fecha de Retiro:
+        </label>
+
+        <input
+            type="date"
+            name="fecha_retiro"
+            id="fecha_retiro"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Guardar Préstamo
+        </button>
+
+        <a href="/">Cancelar</a>
+
+    </form>
+
+</body>
+</html>

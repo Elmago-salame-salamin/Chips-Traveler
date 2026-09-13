@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lugares | Traveler</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark traveler-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+            <i class="bi bi-compass"></i>
+            Traveler
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('lugares') }}">Lugares</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ENCABEZADO -->
+<section class="places-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="section-tag">DESCUBRÍ CÓRDOBA</span>
+                <h1 class="mt-3">Encontrá el lugar perfecto</h1>
+                <p>Explorá hoteles, restaurantes y atracciones para disfrutar de tu próxima aventura.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FILTROS -->
+<section class="places-section">
+    <div class="container">
+        <div class="filter-box">
+            <form action="{{ url_for('lugares') }}" method="GET">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label">Categoría</label>
+                        <select name="categoria" class="form-select">
+                            <option value="">Todas las categorías</option>
+                            <option value="hotel" {% if categoria == 'hotel' %}selected{% endif %}>Hoteles</option>
+                            <option value="restaurante" {% if categoria == 'restaurante' %}selected{% endif %}>Restaurantes</option>
+                            <option value="atraccion" {% if categoria == 'atraccion' %}selected{% endif %}>Atracciones</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label">Buscar</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" name="buscar" class="form-control" placeholder="Nombre del lugar..." value="{{ buscar or '' }}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn traveler-btn w-100">
+                            <i class="bi bi-search"></i>
+                            Buscar lugares
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- TÍTULO -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <span class="section-tag">EXPLORÁ</span>
+                <h2 class="section-title mt-2">Lugares disponibles</h2>
+            </div>
+            <span class="places-count">{{ lugares|length }} lugares</span>
+        </div>
+
+        <!-- LUGARES -->
+        <div class="row g-4">
+            {% for lugar in lugares %}
+            <div class="col-md-6 col-lg-4">
+                <div class="place-card h-100">
+                    <div class="place-image">
+                        <div class="place-image-overlay">
+                            {% if lugar.categoria == 'hotel' %}
+                                <i class="bi bi-building"></i>
+                            {% elif lugar.categoria == 'restaurante' %}
+                                <i class="bi bi-cup-hot"></i>
+                            {% else %}
+                                <i class="bi bi-stars"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="place-card-body">
+                        <span class="place-category">
+                            {% if lugar.categoria == 'hotel' %}
+                                HOTEL
+                            {% elif lugar.categoria == 'restaurante' %}
+                                RESTAURANTE
+                            {% else %}
+                                ATRACCIÓN
+                            {% endif %}
+                        </span>
+
+                        <h3>{{ lugar.nombre }}</h3>
+
+                        <p class="place-location">
+                            <i class="bi bi-geo-alt"></i>
+                            {{ lugar.ubicacion }}
+                        </p>
+
+                        <p class="place-description">{{ lugar.descripcion }}</p>
+
+                        <div class="place-card-footer">
+                            <span class="rating">
+                                <i class="bi bi-star-fill"></i>
+                                {{ lugar.valoracion }}
+                            </span>
+
+                            <a href="{{ url_for('lugar', id=lugar.id) }}" class="btn btn-outline-brown">
+                                Ver lugar
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="bi bi-search"></i>
+                    <h3>No encontramos lugares</h3>
+                    <p>Probá cambiando los filtros de búsqueda.</p>
+                    <a href="{{ url_for('lugares') }}" class="btn traveler-btn">
+                        Ver todos los lugares
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="traveler-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>
+                    <i class="bi bi-compass"></i>
+                    Traveler
+                </h5>
+                <p>Descubrí Córdoba de una manera diferente.</p>
+            </div>
+
+            <div class="col-md-6 text-md-end">
+                <p>© 2026 Traveler</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
