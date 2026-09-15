@@ -18,17 +18,20 @@
    GENERAL
 ===================================================== */
 
+/* Modifica el modelo de caja por defecto a border-box para facilitar el control de dimensiones */
 * {
     box-sizing: border-box;
 }
 
+/* Estilos globales para el cuerpo del documento */
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--text-dark);
+    color: var(--text-dark); /* Aplica el color de texto principal desde variables */
     background-color: var(--white);
 }
 
+/* Quita el subrayado predeterminado de las etiquetas de enlace */
 a {
     text-decoration: none;
 }
@@ -37,11 +40,13 @@ a {
    NAVBAR
 ===================================================== */
 
+/* Contenedor principal de la barra de navegación */
 .navbar-traveler {
     background-color: var(--brown-dark);
     min-height: 75px;
 }
 
+/* Estilo del isotipo/nombre del sitio dentro del navbar */
 .logo {
     color: white !important;
     font-size: 25px;
@@ -49,6 +54,7 @@ a {
     letter-spacing: -0.5px;
 }
 
+/* Círculo contenedor para el ícono de la marca */
 .logo-icon {
     display: inline-flex;
     align-items: center;
@@ -60,18 +66,21 @@ a {
     background-color: var(--brown-light);
 }
 
+/* Enlaces individuales de la barra de navegación */
 .navbar-traveler .nav-link {
     color: #eee4dc;
     margin-left: 20px;
     font-size: 15px;
-    transition: 0.2s;
+    transition: 0.2s; /* Transición suave para los estados hover/active */
 }
 
+/* Cambio de color en estado hover o enlace activo */
 .navbar-traveler .nav-link:hover,
 .navbar-traveler .nav-link.active {
     color: white;
 }
 
+/* Botón personalizado de inicio de sesión/registro en el navbar */
 .btn-login {
     border-radius: 6px;
     padding: 8px 18px;
@@ -81,6 +90,7 @@ a {
    HERO
 ===================================================== */
 
+/* Sección principal con imagen destacada */
 .hero {
     position: relative;
     min-height: 570px;
@@ -92,6 +102,7 @@ a {
     color: white;
 }
 
+/* Capa de degradado oscuro sobre la imagen de fondo para mejorar la legibilidad del texto */
 .hero-overlay {
     position: absolute;
     inset: 0;
@@ -103,12 +114,14 @@ a {
     );
 }
 
+/* Contenedor relativo del texto para superponerlo a la capa transparente */
 .hero-content {
     position: relative;
     z-index: 2;
     padding-top: 40px;
 }
 
+/* Etiqueta superior de la sección Hero */
 .hero-tag {
     display: inline-block;
     font-size: 13px;
@@ -118,6 +131,7 @@ a {
     color: #e8cdb7;
 }
 
+/* Título principal de la landing page */
 .hero h1 {
     max-width: 720px;
     font-size: 58px;
@@ -127,10 +141,12 @@ a {
     letter-spacing: -2px;
 }
 
+/* Resaltado de palabra clave en el título */
 .hero h1 span {
     color: #d7a982;
 }
 
+/* Párrafo descriptivo en el Hero */
 .hero-description {
     max-width: 620px;
     font-size: 19px;
@@ -143,6 +159,7 @@ a {
    SEARCH BOX
 ===================================================== */
 
+/* Contenedor flotante para la barra de búsqueda */
 .search-box {
     background-color: white;
     border-radius: 10px;
@@ -151,11 +168,13 @@ a {
     max-width: 1100px;
 }
 
+/* Columna individual para cada campo de filtro */
 .search-field {
     padding: 18px 20px;
     border-right: 1px solid var(--border);
 }
 
+/* Títulos/Labels encima de los inputs de búsqueda */
 .search-field label {
     display: block;
     font-size: 12px;
@@ -168,6 +187,7 @@ a {
     margin-right: 5px;
 }
 
+/* Modificaciones sobre los componentes de entrada de Bootstrap */
 .search-field .form-control,
 .search-field .form-select {
     border: none;
@@ -177,12 +197,14 @@ a {
     box-shadow: none;
 }
 
+/* Contenedor del botón principal de búsqueda */
 .search-button-container {
     padding: 10px;
     display: flex;
     align-items: stretch;
 }
 
+/* Botón de acción principal de búsqueda */
 .search-button {
     width: 100%;
     display: flex;
@@ -197,6 +219,7 @@ a {
     transition: 0.2s;
 }
 
+/* Efecto al pasar el cursor sobre el botón de búsqueda */
 .search-button:hover {
     background-color: var(--brown-dark);
     color: white;
@@ -206,15 +229,18 @@ a {
    SECTIONS
 ===================================================== */
 
+/* Configuración de espaciado vertical reutilizable para secciones */
 .categories-section,
 .featured-section {
     padding: 90px 0;
 }
 
+/* Fondo diferenciado para la sección de categorías */
 .categories-section {
     background-color: var(--cream);
 }
 
+/* Encabezado estandarizado para secciones de la página */
 .section-heading {
     margin-bottom: 40px;
 }
@@ -243,6 +269,7 @@ a {
    CATEGORY CARDS
 ===================================================== */
 
+/* Estructura tipo tarjeta interactiva para mostrar categorías de viajes */
 .category-card {
     position: relative;
     display: flex;
@@ -254,15 +281,17 @@ a {
     border: 1px solid var(--border);
     border-radius: 12px;
     color: var(--text-dark);
-    transition: transform 0.25s, box-shadow 0.25s;
+    transition: transform 0.25s, box-shadow 0.25s; /* Transición animada de elevación */
 }
 
+/* Elevación mediante sombra y desplazamiento al pasar el mouse por encima */
 .category-card:hover {
     color: var(--text-dark);
     transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(59, 33, 24, 0.10);
 }
 
+/* Recuadro contenedor del ícono de la categoría */
 .category-icon {
     min-width: 65px;
     height: 65px;
@@ -289,6 +318,7 @@ a {
     line-height: 1.5;
 }
 
+/* Flecha indicadora de navegación a la derecha */
 .category-arrow {
     margin-left: auto;
     color: var(--brown-light);
@@ -299,12 +329,14 @@ a {
    FEATURED
 ===================================================== */
 
+/* Disposición Flexbox para alinear el título con el enlace "Ver todos" */
 .featured-heading {
     display: flex;
     justify-content: space-between;
     align-items: end;
 }
 
+/* Estilos del enlace para ver el listado completo */
 .see-all {
     color: var(--brown);
     font-weight: 700;
@@ -319,6 +351,7 @@ a {
    FEATURED CARDS
 ===================================================== */
 
+/* Tarjetas para mostrar lugares destacados (Hoteles, Restaurantes, Atracciones) */
 .featured-card {
     background-color: white;
     border: 1px solid var(--border);
@@ -332,6 +365,7 @@ a {
     box-shadow: 0 15px 35px rgba(59, 33, 24, 0.12);
 }
 
+/* Área superior de la tarjeta dedicada a la imagen o placeholder de fondo */
 .featured-image {
     height: 220px;
     position: relative;
@@ -340,6 +374,7 @@ a {
     justify-content: center;
 }
 
+/* Degradados temáticos de respaldo por categoría */
 .hotel-image {
     background: linear-gradient(
         135deg,
@@ -364,11 +399,13 @@ a {
     );
 }
 
+/* Ícono ilustrativo central dentro del área de imagen */
 .featured-icon {
     font-size: 75px;
     color: rgba(255, 255, 255, 0.75);
 }
 
+/* Badge flotante superpuesto en la esquina superior izquierda */
 .featured-badge {
     position: absolute;
     top: 15px;
@@ -381,6 +418,7 @@ a {
     font-weight: 700;
 }
 
+/* Bloque contenedor de información de la tarjeta */
 .featured-info {
     padding: 22px;
 }
@@ -400,6 +438,7 @@ a {
     color: var(--brown-light);
 }
 
+/* Pie de la tarjeta con puntuación y llamada a la acción */
 .featured-footer {
     display: flex;
     justify-content: space-between;
@@ -407,6 +446,7 @@ a {
     margin-top: 20px;
 }
 
+/* Etiqueta de puntuación o valoración con estrellas */
 .rating {
     padding: 6px 9px;
     border-radius: 6px;
@@ -427,13 +467,14 @@ a {
 }
 
 /* =====================================================
-   CTA
+   CTA (Call to Action)
 ===================================================== */
 
 .cta-section {
     padding: 30px 0 90px;
 }
 
+/* Contenedor oscuro destacado para llamar la atención del usuario */
 .cta-box {
     display: flex;
     align-items: center;
@@ -462,6 +503,7 @@ a {
     color: #d9ccc3;
 }
 
+/* Botón llamativo dentro del bloque CTA */
 .cta-button {
     white-space: nowrap;
     padding: 13px 24px;
@@ -480,6 +522,7 @@ a {
    FOOTER
 ===================================================== */
 
+/* Pie de página principal */
 .footer {
     padding: 60px 0 25px;
     background-color: #291711;
@@ -525,6 +568,7 @@ a {
     border-color: #49362d;
 }
 
+/* Sub-footer inferior con derechos de autor y avisos */
 .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -533,9 +577,10 @@ a {
 }
 
 /* =====================================================
-   RESPONSIVE
+   RESPONSIVE (Media Queries)
 ===================================================== */
 
+/* Ajustes adaptativos para tablets y pantallas medianas (ancho máximo 991px) */
 @media (max-width: 991px) {
     .hero {
         min-height: 650px;
@@ -545,6 +590,7 @@ a {
         font-size: 45px;
     }
 
+    /* Modifica los bordes del buscador para adaptarse a un diseño apilado verticalmente */
     .search-field {
         border-right: none;
         border-bottom: 1px solid var(--border);
@@ -555,6 +601,7 @@ a {
     }
 }
 
+/* Ajustes adaptativos para smartphones y pantallas pequeñas (ancho máximo 576px) */
 @media (max-width: 576px) {
     .hero {
         min-height: 700px;

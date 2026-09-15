@@ -1,6 +1,8 @@
+# Import essential modules from Flask and database connector
 from flask import Flask, render_template, request, redirect, url_for
 from database import conectar_db
 
+# Initialize Flask application specifying custom templates directory
 app = Flask(__name__, template_folder="template")
 
 
@@ -9,14 +11,17 @@ app = Flask(__name__, template_folder="template")
 # ==========================================
 @app.route("/")
 def home():
+    """Main route rendering the homepage view."""
     return render_template("home.html")
 
 
 # ==========================================
-# LISTA DE LUGARES
+# PLACES LIST
 # ==========================================
 @app.route("/lugares")
 def lugares():
+    """Retrieve and filter list of places by category and search keyword."""
+    # Retrieve GET parameters from query string URL
     categoria = request.args.get("categoria", "")
     buscar = request.args.get("buscar", "")
 
@@ -25,9 +30,10 @@ def lugares():
     if conexion is None:
         return "No se pudo conectar con la base de datos.", 500
 
+    # Create dictionary cursor to get results formatted as key-value pairs
     cursor = conexion.cursor(dictionary=True)
 
-    # Consulta base
+    # Base parameterized query to prevent SQL injection vulnerabilities
     consulta = """
         SELECT
             id_lugar AS id,
@@ -44,12 +50,12 @@ def lugares():
 
     parametros = []
 
-    # Filtro por categoría
+    # Optional category filter
     if categoria:
         consulta += " AND categoria = %s"
         parametros.append(categoria.lower())
 
-    # Búsqueda por nombre
+    # Partial name search filter
     if buscar:
         consulta += " AND nombre LIKE %s"
         parametros.append(f"%{buscar}%")
@@ -57,7 +63,6 @@ def lugares():
     consulta += " ORDER BY categoria, nombre"
 
     cursor.execute(consulta, parametros)
-
     lugares = cursor.fetchall()
 
     cursor.close()
@@ -72,10 +77,11 @@ def lugares():
 
 
 # ==========================================
-# INFORMACIÓN DE UN LUGAR
+# PLACE DETAILS
 # ==========================================
 @app.route("/lugar/<int:id>")
 def lugar(id):
+    """Retrieve detailed information for a specific place by ID."""
     conexion = conectar_db()
 
     if conexion is None:
@@ -112,10 +118,11 @@ def lugar(id):
 
 
 # ==========================================
-# FORMULARIO DE RESERVA
+# RESERVATION FORM
 # ==========================================
 @app.route("/reserva/<int:id>")
 def reserva(id):
+    """Display the reservation form for a selected place."""
     conexion = conectar_db()
 
     if conexion is None:
@@ -152,11 +159,12 @@ def reserva(id):
 
 
 # ==========================================
-# GUARDAR RESERVA
+# SAVE RESERVATION
 # ==========================================
 @app.route("/reserva/<int:id>", methods=["POST"])
 def guardar_reserva(id):
-    # Datos enviados desde reserva.html
+    """Process POST request, create/update client record, and store reservation."""
+    # Extract values sent via form payload body
     id_cliente = request.form.get("id_cliente")
     nombre = request.form.get("nombre")
     email = request.form.get("email")
@@ -165,7 +173,7 @@ def guardar_reserva(id):
     personas = request.form.get("personas")
     comentario = request.form.get("comentario")
 
-    # Verificación básica
+    # Required field verification
     if not id_cliente or not nombre or not telefono or not fecha:
         return "Faltan datos obligatorios.", 400
 
@@ -177,9 +185,7 @@ def guardar_reserva(id):
     cursor = conexion.cursor(dictionary=True)
 
     try:
-        # ------------------------------------------
-        # Verificar que el lugar exista
-        # ------------------------------------------
+        # Check if place exists
         cursor.execute("""
             SELECT id_lugar
             FROM lugares
@@ -191,9 +197,7 @@ def guardar_reserva(id):
         if lugar is None:
             return "Lugar no encontrado.", 404
 
-        # ------------------------------------------
-        # Verificar si el cliente ya existe
-        # ------------------------------------------
+        # Check if customer already exists
         cursor.execute("""
             SELECT id_cliente
             FROM clientes
@@ -202,9 +206,7 @@ def guardar_reserva(id):
 
         cliente = cursor.fetchone()
 
-        # ------------------------------------------
-        # Si no existe, crear cliente
-        # ------------------------------------------
+        # Insert new customer if missing
         if cliente is None:
             cursor.execute("""
                 INSERT INTO clientes
@@ -217,9 +219,7 @@ def guardar_reserva(id):
                 email
             ))
 
-        # ------------------------------------------
-        # Si existe, actualizar sus datos
-        # ------------------------------------------
+        # Update contact details if customer already exists
         else:
             cursor.execute("""
                 UPDATE clientes
@@ -234,9 +234,7 @@ def guardar_reserva(id):
                 id_cliente
             ))
 
-        # ------------------------------------------
-        # Crear la reserva
-        # ------------------------------------------
+        # Insert new booking entry
         cursor.execute("""
             INSERT INTO reservas
             (
@@ -255,17 +253,20 @@ def guardar_reserva(id):
             comentario
         ))
 
+        # Commit transactions to persist changes into database
         conexion.commit()
 
     except Exception as error:
+        # Roll back active transaction in case of execution failure
         conexion.rollback()
         return f"Error al guardar la reserva: {error}", 500
 
     finally:
+        # Ensure cursor and database connection are properly closed
         cursor.close()
         conexion.close()
 
-    # Volver a la página del lugar
+    # Redirect to the booked place details view
     return redirect(
         url_for(
             "lugar",
@@ -275,7 +276,8 @@ def guardar_reserva(id):
 
 
 # ==========================================
-# EJECUTAR APLICACIÓN
+# APPLICATION ENTRYPOINT
 # ==========================================
 if __name__ == "__main__":
+    # Run development server with live reload enabled
     app.run(debug=True)

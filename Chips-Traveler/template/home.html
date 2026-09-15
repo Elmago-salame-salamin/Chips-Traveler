@@ -1,14 +1,20 @@
+<!-- Declares the document type as HTML5 -->
 <!DOCTYPE html>
+<!-- Defines the root element of the HTML page and sets the primary language to Spanish -->
 <html lang="es">
 <head>
+    <!-- Sets character encoding to UTF-8 for universal character support -->
     <meta charset="UTF-8">
+    <!-- Configures the viewport to ensure proper responsive scaling on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the webpage title displayed on the browser tab -->
     <title>Traveler - Descubrí Córdoba</title>
 
+    <!-- Includes Bootstrap 5 CSS stylesheet from a CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
+    <!-- Includes Bootstrap Icons library from a CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Nuestro CSS -->
+    <!-- Links the custom CSS file using Flask Jinja2 template syntax -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -17,32 +23,44 @@
     <!-- =====================================================
          NAVBAR
     ===================================================== -->
+    <!-- Main navigation bar using Bootstrap navbar classes -->
     <nav class="navbar navbar-expand-lg navbar-traveler">
+        <!-- Container to align and center navbar content -->
         <div class="container">
-            <!-- LOGO -->
+            <!-- Brand logo link targeting the homepage -->
             <a class="navbar-brand logo" href="/">
+                <!-- Wrapper for the compass icon -->
                 <span class="logo-icon"><i class="bi bi-compass"></i></span>
+                <!-- Brand text -->
                 <span>Traveler</span>
             </a>
 
-            <!-- BOTÓN MOBILE -->
+            <!-- Mobile toggle button for collapsible menu -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <!-- Icon inside the mobile menu toggle button -->
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- MENÚ -->
+            <!-- Collapsible menu container -->
             <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Unordered list holding navigation menu items -->
                 <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <!-- Navigation menu item -->
                     <li class="nav-item">
+                        <!-- Navigation link pointing to Home -->
                         <a class="nav-link active" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
+                        <!-- Navigation link to explore places -->
                         <a class="nav-link" href="/lugares">Explorar lugares</a>
                     </li>
                     <li class="nav-item">
+                        <!-- Navigation link pointing to categories anchor section -->
                         <a class="nav-link" href="#categorias">Categorías</a>
                     </li>
+                    <!-- Navigation item with margin for desktop viewports -->
                     <li class="nav-item ms-lg-3">
+                        <!-- Login button link -->
                         <a href="#" class="btn btn-outline-light btn-login">Iniciar sesión</a>
                     </li>
                 </ul>
@@ -53,14 +71,22 @@
     <!-- =====================================================
          HERO
     ===================================================== -->
+    <!-- Main Hero section containing high-impact promotional banner -->
     <section class="hero">
+        <!-- Dark overlay element for visual contrast over background media -->
         <div class="hero-overlay"></div>
 
+        <!-- Main container for hero text and search bar -->
         <div class="container hero-content">
+            <!-- Grid row container -->
             <div class="row">
+                <!-- Column taking 8 parts on large screens -->
                 <div class="col-lg-8">
+                    <!-- Tagline badge -->
                     <span class="hero-tag">DESCUBRÍ CÓRDOBA</span>
+                    <!-- Main hero header -->
                     <h1>Encontrá tu próximo <span>lugar favorito</span></h1>
+                    <!-- Hero description text -->
                     <p class="hero-description">
                         Hoteles, restaurantes, atracciones y experiencias para disfrutar de Córdoba.
                     </p>
@@ -70,14 +96,20 @@
             <!-- =================================================
                  BUSCADOR
             ================================================= -->
+            <!-- Search bar wrapper block -->
             <div class="search-box">
+                <!-- Grid row without gutters (spacing between columns) -->
                 <div class="row g-0">
-                    <!-- ¿QUÉ BUSCÁS? -->
+                    <!-- WHAT ARE YOU LOOKING FOR? -->
+                    <!-- Search section column covering 4 units on desktop -->
                     <div class="col-lg-4 search-field">
+                        <!-- Input field label with Bootstrap icon -->
                         <label>
                             <i class="bi bi-search"></i> ¿Qué estás buscando?
                         </label>
+                        <!-- Category dropdown menu -->
                         <select class="form-select">
+                            <!-- Default disabled or active search option -->
                             <option selected>Elegí un tipo de lugar</option>
                             <option>Hoteles</option>
                             <option>Restaurantes</option>
@@ -85,24 +117,30 @@
                         </select>
                     </div>
 
-                    <!-- UBICACIÓN -->
+                    <!-- LOCATION -->
+                    <!-- Location column covering 3 units on desktop -->
                     <div class="col-lg-3 search-field">
                         <label>
                             <i class="bi bi-geo-alt"></i> Ubicación
                         </label>
+                        <!-- Text input for typing target city or region -->
                         <input type="text" class="form-control" placeholder="Córdoba">
                     </div>
 
-                    <!-- FECHA -->
+                    <!-- DATE -->
+                    <!-- Date picker column covering 3 units on desktop -->
                     <div class="col-lg-3 search-field">
                         <label>
                             <i class="bi bi-calendar3"></i> Fecha
                         </label>
+                        <!-- Native calendar date selection input -->
                         <input type="date" class="form-control">
                     </div>
 
-                    <!-- BOTÓN -->
+                    <!-- BUTTON -->
+                    <!-- Column wrapper for the action button covering 2 units -->
                     <div class="col-lg-2 search-button-container">
+                        <!-- Search submit button leading to places overview -->
                         <a href="/lugares" class="btn search-button">
                             Buscar <i class="bi bi-arrow-right"></i>
                         </a>
@@ -115,31 +153,41 @@
     <!-- =====================================================
          CATEGORÍAS
     ===================================================== -->
+    <!-- Section containing category cards -->
     <section class="categories-section" id="categorias">
         <div class="container">
+            <!-- Header wrapper for category titles and taglines -->
             <div class="section-heading">
                 <span>EXPLORÁ CÓRDOBA</span>
                 <h2>¿Qué estás buscando?</h2>
                 <p>Encontrá el lugar perfecto para tu próxima salida.</p>
             </div>
 
+            <!-- Grid container with level 4 gap spacing -->
             <div class="row g-4">
                 <!-- HOTEL -->
+                <!-- Column setting width to 4 units on medium screens upwards -->
                 <div class="col-md-4">
+                    <!-- Link card wrapper pointing to hotel filter -->
                     <a href="/lugares?categoria=hotel" class="category-card">
+                        <!-- Container for category icon -->
                         <div class="category-icon">
                             <i class="bi bi-building"></i>
                         </div>
                         <div>
+                            <!-- Category title -->
                             <h3>Hoteles</h3>
+                            <!-- Short category summary -->
                             <p>Encontrá el alojamiento ideal para tu estadía.</p>
                         </div>
+                        <!-- Arrow icon indicator -->
                         <i class="bi bi-arrow-right category-arrow"></i>
                     </a>
                 </div>
 
-                <!-- RESTAURANTES -->
+                <!-- RESTAURANTS -->
                 <div class="col-md-4">
+                    <!-- Link card wrapper pointing to restaurant filter -->
                     <a href="/lugares?categoria=restaurante" class="category-card">
                         <div class="category-icon">
                             <i class="bi bi-cup-hot"></i>
@@ -152,8 +200,9 @@
                     </a>
                 </div>
 
-                <!-- ATRACCIONES -->
+                <!-- ATTRACTIONS -->
                 <div class="col-md-4">
+                    <!-- Link card wrapper pointing to attraction filter -->
                     <a href="/lugares?categoria=atraccion" class="category-card">
                         <div class="category-icon">
                             <i class="bi bi-stars"></i>
@@ -172,35 +221,49 @@
     <!-- =====================================================
          DESTACADOS
     ===================================================== -->
+    <!-- Section displaying featured recommended locations -->
     <section class="featured-section">
         <div class="container">
+            <!-- Section heading layout for featured area -->
             <div class="section-heading featured-heading">
                 <div>
                     <span>RECOMENDADOS</span>
                     <h2>Lugares para descubrir</h2>
                 </div>
+                <!-- Navigation link to view all places -->
                 <a href="/lugares" class="see-all">
                     Ver todos <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
 
             <div class="row g-4">
-                <!-- LUGAR 1 -->
+                <!-- PLACE 1 -->
+                <!-- Responsive column layout: half width on tablet, 1/3 width on desktop -->
                 <div class="col-md-6 col-lg-4">
+                    <!-- Card component container -->
                     <div class="featured-card">
+                        <!-- Card media cover container -->
                         <div class="featured-image hotel-image">
+                            <!-- Category text badge -->
                             <span class="featured-badge">Hotel</span>
+                            <!-- Visual placeholder icon -->
                             <i class="bi bi-building featured-icon"></i>
                         </div>
+                        <!-- Card content container -->
                         <div class="featured-info">
+                            <!-- Location name -->
                             <h3>La Casa del Ceibo</h3>
+                            <!-- Location region information -->
                             <p class="location">
                                 <i class="bi bi-geo-alt"></i> Córdoba, Argentina
                             </p>
+                            <!-- Card footer container containing rating and detail link -->
                             <div class="featured-footer">
+                                <!-- Star rating indicator -->
                                 <span class="rating">
                                     <i class="bi bi-star-fill"></i> 4.8
                                 </span>
+                                <!-- Link to detailed view page -->
                                 <a href="/lugar/1">
                                     Ver lugar <i class="bi bi-arrow-right"></i>
                                 </a>
@@ -209,7 +272,7 @@
                     </div>
                 </div>
 
-                <!-- LUGAR 2 -->
+                <!-- PLACE 2 -->
                 <div class="col-md-6 col-lg-4">
                     <div class="featured-card">
                         <div class="featured-image restaurant-image">
@@ -233,7 +296,7 @@
                     </div>
                 </div>
 
-                <!-- LUGAR 3 -->
+                <!-- PLACE 3 -->
                 <div class="col-md-6 col-lg-4">
                     <div class="featured-card">
                         <div class="featured-image park-image">
@@ -261,16 +324,19 @@
     </section>
 
     <!-- =====================================================
-         CTA
+         CTA (CALL TO ACTION)
     ===================================================== -->
+    <!-- Call-to-action banner section -->
     <section class="cta-section">
         <div class="container">
+            <!-- Box wrapper containing CTA details and button -->
             <div class="cta-box">
                 <div>
                     <span>TU PRÓXIMA EXPERIENCIA</span>
                     <h2>Córdoba tiene mucho para ofrecer.</h2>
                     <p>Explorá nuestros lugares y empezá a planificar tu próxima salida.</p>
                 </div>
+                <!-- Prominent Call To Action button -->
                 <a href="/lugares" class="btn cta-button">
                     Explorar lugares <i class="bi bi-arrow-right"></i>
                 </a>
@@ -281,16 +347,20 @@
     <!-- =====================================================
          FOOTER
     ===================================================== -->
+    <!-- Main page footer element -->
     <footer class="footer">
         <div class="container">
             <div class="row">
+                <!-- Brand summary column in footer -->
                 <div class="col-lg-5 mb-4">
+                    <!-- Brand identifier in footer -->
                     <div class="footer-logo">
                         <i class="bi bi-compass"></i> Traveler
                     </div>
                     <p>Tu guía para descubrir lugares, experiencias y actividades en Córdoba.</p>
                 </div>
 
+                <!-- Footer quick links column for categories -->
                 <div class="col-6 col-lg-3">
                     <h4>Explorar</h4>
                     <a href="/lugares">Lugares</a>
@@ -299,6 +369,7 @@
                     <a href="/lugares?categoria=atraccion">Atracciones</a>
                 </div>
 
+                <!-- Footer company informational links column -->
                 <div class="col-6 col-lg-4">
                     <h4>Traveler</h4>
                     <a href="#">Sobre nosotros</a>
@@ -306,7 +377,9 @@
                     <a href="#">Términos y condiciones</a>
                 </div>
             </div>
+            <!-- Horizontal rule divider -->
             <hr>
+            <!-- Bottom line with copyright and geographic location -->
             <div class="footer-bottom">
                 <span>© 2026 Traveler</span>
                 <span>Córdoba, Argentina</span>
@@ -314,6 +387,7 @@
         </div>
     </footer>
 
+    <!-- Includes Bootstrap JavaScript bundle from CDN for interactivity (dropdowns, mobile menu, toggles) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

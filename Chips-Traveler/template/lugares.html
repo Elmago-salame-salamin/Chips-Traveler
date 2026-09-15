@@ -1,0 +1,193 @@
+<!-- Declares the document type as HTML5 -->
+<!DOCTYPE html>
+<!-- Defines the root element of the page and sets language to Spanish -->
+<html lang="es">
+<head>
+    <!-- Sets universal character encoding to UTF-8 -->
+    <meta charset="UTF-8">
+    <!-- Ensures proper responsive rendering and scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Dynamic page title rendered using Jinja2 template variable -->
+    <title>{{ lugar.nombre }} | Traveler</title>
+    <!-- Bootstrap 5 CSS stylesheet from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons library stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom stylesheet linked using Flask Jinja2 url_for helper function -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<!-- Main top navigation bar using Bootstrap dark navbar styles -->
+<nav class="navbar navbar-expand-lg navbar-dark traveler-navbar">
+    <!-- Container centering content and maintaining margins -->
+    <div class="container">
+        <!-- Main site brand link pointing dynamically to home route -->
+        <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+            <!-- Brand icon -->
+            <i class="bi bi-compass"></i>
+            Traveler
+        </a>
+
+        <!-- Mobile menu toggle button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible area holding navigation items -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Navigation list aligned to the right side -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <!-- Home menu link using Jinja2 route url_for -->
+                    <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <!-- Places index menu link -->
+                    <a class="nav-link" href="{{ url_for('lugares') }}">Lugares</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- DETAIL -->
+<!-- Main detailed place view section -->
+<section class="place-detail-section">
+    <div class="container">
+        <!-- BREADCRUMBS -->
+        <!-- Custom visual breadcrumb trail navigation -->
+        <div class="breadcrumb-custom">
+            <a href="{{ url_for('home') }}">Inicio</a>
+            <i class="bi bi-chevron-right"></i>
+            <a href="{{ url_for('lugares') }}">Lugares</a>
+            <i class="bi bi-chevron-right"></i>
+            <!-- Dynamic current place name in breadcrumb trail -->
+            <span>{{ lugar.nombre }}</span>
+        </div>
+
+        <!-- Grid layout container with standard gap spacing -->
+        <div class="row g-5">
+            <!-- IMAGE COLUMN -->
+            <!-- Column taking 7 units on large screen devices -->
+            <div class="col-lg-7">
+                <!-- Wrapper displaying specific icon based on category condition -->
+                <div class="detail-image">
+                    <!-- Jinja2 condition checking if place category is 'hotel' -->
+                    {% if lugar.categoria == 'hotel' %}
+                        <i class="bi bi-building"></i>
+                    <!-- Jinja2 fallback for 'restaurante' category -->
+                    {% elif lugar.categoria == 'restaurante' %}
+                        <i class="bi bi-cup-hot"></i>
+                    <!-- Default fallback icon for 'atraccion' or other categories -->
+                    {% else %}
+                        <i class="bi bi-stars"></i>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- INFORMATION COLUMN -->
+            <!-- Column taking 5 units on large screen devices -->
+            <div class="col-lg-5">
+                <!-- Text badge displaying category name in uppercase -->
+                <span class="place-category">
+                    {% if lugar.categoria == 'hotel' %}
+                        HOTEL
+                    {% elif lugar.categoria == 'restaurante' %}
+                        RESTAURANTE
+                    {% else %}
+                        ATRACCIÓN
+                    {% endif %}
+                </span>
+
+                <!-- Dynamic primary heading showing place name -->
+                <h1 class="detail-title">{{ lugar.nombre }}</h1>
+
+                <!-- Rating badge display block -->
+                <div class="detail-rating">
+                    <span class="rating">
+                        <i class="bi bi-star-fill"></i>
+                        <!-- Dynamic variable for numeric review score -->
+                        {{ lugar.valoracion }}
+                    </span>
+                    <span>Excelente experiencia</span>
+                </div>
+
+                <!-- Geographic location block -->
+                <div class="detail-location">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <!-- Dynamic variable for place location text -->
+                    {{ lugar.ubicacion }}
+                </div>
+
+                <!-- Horizontal line separator -->
+                <hr>
+
+                <!-- Subheading for place details -->
+                <h4>Sobre este lugar</h4>
+
+                <!-- Dynamic paragraph containing detailed place description -->
+                <p class="detail-description">{{ lugar.descripcion }}</p>
+
+                <!-- FEATURES LIST -->
+                <!-- Bulleted feature summary list -->
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Información verificada
+                    </div>
+                    <div class="feature-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Ubicación disponible
+                    </div>
+                    <div class="feature-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Reserva online
+                    </div>
+                </div>
+
+                <!-- BUTTONS -->
+                <!-- Action call-to-action button group -->
+                <div class="detail-buttons">
+                    <!-- Back link button returning to main list view -->
+                    <a href="{{ url_for('lugares') }}" class="btn btn-outline-brown">
+                        <i class="bi bi-arrow-left"></i>
+                        Volver
+                    </a>
+                    <!-- Reservation button linking to booking route with parameter -->
+                    <a href="{{ url_for('reserva', id=lugar.id) }}" class="btn traveler-btn">
+                        <i class="bi bi-calendar-check"></i>
+                        Reservar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<!-- Footer element holding copyright information -->
+<footer class="traveler-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>
+                    <i class="bi bi-compass"></i>
+                    Traveler
+                </h5>
+                <p>Descubrí Córdoba de una manera diferente.</p>
+            </div>
+
+            <!-- Footer copyright right aligned on medium devices -->
+            <div class="col-md-6 text-md-end">
+                <p>© 2026 Traveler</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JS Script inclusion for interactive Bootstrap components -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
