@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- English Comment: User profile display section with navigation to edit or delete account -->
+<div class="profile-card">
+    <img src="{{ url_for('static', filename='uploads/' + usuario.foto_perfil) }}" alt="Foto de Perfil" class="profile-avatar-large">
+    <h2>{{ usuario.nombre }}</h2>
+    <p class="profile-email">{{ usuario.email }}</p>
+
+    <!-- English Comment: Display profile description/bio editable only from Edit Profile page -->
+    <div class="profile-bio">
+        <h4>Descripción personal:</h4>
+        <p>{{ usuario.descripcion or 'Sin descripción proporcionada.' }}</p>
+    </div>
+
+    <!-- English Comment: User actions layout for editing, logging out, and account deletion -->
+    <div class="profile-actions">
+        <a href="{{ url_for('editar_perfil') }}" class="btn-primary">Editar Cuenta</a>
+        <a href="{{ url_for('logout') }}" class="btn-secondary">Cerrar Sesión</a>
+
+        <form action="{{ url_for('eliminar_cuenta') }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar su cuenta de forma permanente?');" style="display:inline;">
+            <button type="submit" class="btn-danger">Eliminar Cuenta</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

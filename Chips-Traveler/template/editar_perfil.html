@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- English Comment: Profile edit form enabling user bio, profile photo, name and password updates -->
+<div class="form-card">
+    <h2>Editar Perfil de Usuario</h2>
+    <form action="{{ url_for('editar_perfil') }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" value="{{ usuario.nombre }}" required class="form-input">
+        </div>
+
+        <!-- English Comment: Profile picture image upload section -->
+        <div class="form-group">
+            <label>Cambiar Foto de Perfil:</label>
+            <input type="file" name="foto_perfil" accept="image/*" class="form-input">
+        </div>
+
+        <!-- English Comment: Personal bio description edit area -->
+        <div class="form-group">
+            <label>Descripción personal:</label>
+            <textarea name="descripcion" rows="4" class="form-input">{{ usuario.descripcion or '' }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Nueva Contraseña (dejar en blanco para conservar actual):</label>
+            <input type="password" name="password" class="form-input">
+        </div>
+
+        <button type="submit" class="btn-primary">Guardar Cambios</button>
+        <a href="{{ url_for('perfil') }}" class="btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

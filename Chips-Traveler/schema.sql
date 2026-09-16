@@ -150,3 +150,16 @@ VALUES
     NULL,
     4.6
 );
+
+-- English Comment: Create users table supporting authentication, profile customizations, and Terms acceptance logging.
+CREATE TABLE IF NOT EXISTS usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    foto_perfil VARCHAR(255) DEFAULT 'default_avatar.png',
+    acepto_terminos TINYINT(1) NOT NULL DEFAULT 0,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

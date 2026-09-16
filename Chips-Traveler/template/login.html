@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- English Comment: Login form section allowing existing users to authenticate -->
+<div class="form-card">
+    <h2>Iniciar Sesión</h2>
+    <form action="{{ url_for('login') }}" method="POST">
+        <div class="form-group">
+            <label>Correo electrónico:</label>
+            <input type="email" name="email" required class="form-input">
+        </div>
+        <div class="form-group">
+            <label>Contraseña:</label>
+            <input type="password" name="password" required class="form-input">
+        </div>
+        <button type="submit" class="btn-primary">Entrar</button>
+    </form>
+    <p style="margin-top: 15px;">¿No tienes una cuenta? <a href="{{ url_for('registro') }}">Regístrate aquí</a>.</p>
+</div>
+{% endblock %}

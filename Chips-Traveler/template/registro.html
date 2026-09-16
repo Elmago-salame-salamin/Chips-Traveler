@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- English Comment: User registration form container with explicit Terms acceptance requirement -->
+<div class="form-card">
+    <h2>Crear Cuenta</h2>
+    <form action="{{ url_for('registro') }}" method="POST">
+        <div class="form-group">
+            <label>Nombre completo:</label>
+            <input type="text" name="nombre" required class="form-input">
+        </div>
+        <div class="form-group">
+            <label>Correo electrónico:</label>
+            <input type="email" name="email" required class="form-input">
+        </div>
+        <div class="form-group">
+            <label>Contraseña:</label>
+            <input type="password" name="password" required class="form-input">
+        </div>
+
+        <!-- English Comment: Legal Terms & Conditions compliance checkbox field -->
+        <div class="form-checkbox">
+            <input type="checkbox" id="acepto_terminos" name="acepto_terminos" required>
+            <label for="acepto_terminos">
+                Acepto los <a href="{{ url_for('terminos') }}" target="_blank">Términos y Condiciones de Uso</a> y la Política de Privacidad de Reservas Córdoba.
+            </label>
+        </div>
+
+        <button type="submit" class="btn-primary">Registrarse</button>
+    </form>
+</div>
+{% endblock %}

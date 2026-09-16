@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Traveler - Reservas Córdoba</title>
+    <!-- English Comment: Global custom CSS stylesheet link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- English Comment: Main header navigation containing site links and user profile block on the top right side -->
+    <header class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('home') }}">Traveler Córdoba</a>
+        </div>
+        <nav class="nav-links">
+            <a href="{{ url_for('home') }}">Inicio</a>
+            <a href="{{ url_for('lugares') }}">Lugares</a>
+            <a href="{{ url_for('sobre_nosotros') }}">Sobre Nosotros</a>
+        </nav>
+        
+        <!-- English Comment: Right-aligned user panel displaying avatar and user controls -->
+        <div class="user-panel">
+            {% if session.get('usuario_id') %}
+                <a href="{{ url_for('perfil') }}" class="user-profile-link">
+                    <img src="{{ url_for('static', filename='uploads/' + session.get('usuario_foto', 'default_avatar.png')) }}" alt="Foto de Perfil" class="nav-avatar">
+                    <span>{{ session.get('usuario_nombre') }}</span>
+                </a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn-auth">Iniciar Sesión</a>
+                <a href="{{ url_for('registro') }}" class="btn-auth btn-primary">Registrarse</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- English Comment: Section displaying dynamic system flash notification messages -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
