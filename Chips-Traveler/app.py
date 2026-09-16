@@ -274,6 +274,18 @@ def guardar_reserva(id):
         )
     )
 
+# Ruta: Sobre nosotros
+@app.route('/sobre-nosotros')
+def sobre_nosotros():
+    integrantes = [
+        {"nombre": "Eluney Naz", "edad": 17, "rol": "Desarrollador / Integrante"},
+        {"nombre": "Benjamín Acosta", "edad": 17, "rol": "Desarrollador / Integrante"},
+        {"nombre": "Facundo Salas", "edad": 17, "rol": "Desarrollador / Integrante"},
+        {"nombre": "Máximo Oliva", "edad": 16, "rol": "Desarrollador / Integrante"},
+        {"nombre": "Máximo Fernández", "edad": 16, "rol": "Desarrollador / Integrante"},
+        {"nombre": "Facundo Solano", "edad": 16, "rol": "Desarrollador / Integrante"}
+    ]
+    return render_template('sobre_nosotros.html', integrantes=integrantes)
 
 # ==========================================
 # APPLICATION ENTRYPOINT
