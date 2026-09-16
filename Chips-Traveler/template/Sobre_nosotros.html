@@ -40,20 +40,71 @@
         </div>
     </nav>
 
-    <!-- ENCABEZADO -->
+    <!-- ENCABEZADO PRINCIPAL -->
     <section class="places-header py-5 text-center bg-dark text-white">
         <div class="container py-4">
-            <span class="section-tag text-uppercase text-primary fw-bold">NUESTRO EQUIPO</span>
-            <h1 class="mt-2 display-5 fw-bold">Conocé a los creadores de Traveler</h1>
-            <p class="lead col-lg-8 mx-auto">
-                Somos un equipo apasionado por la tecnología y el turismo, enfocados en construir la mejor guía digital para descubrir Córdoba.
+            <span class="section-tag text-uppercase text-primary fw-bold">PROPÓSITO Y COMUNIDAD</span>
+            <h1 class="mt-2 display-5 fw-bold">Descubrí la historia de Traveler</h1>
+            <p class="lead col-lg-8 mx-auto text-light">
+                Una plataforma pensada para transformar la forma en que exploramos y vivimos Córdoba.
             </p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: LA IDEA Y NUESTRO MOTIVO DE EXISTIR -->
+    <section class="py-5 bg-light border-bottom">
+        <div class="container py-3">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <span class="text-uppercase text-primary fw-bold">Nuestra Visión</span>
+                    <h2 class="fw-bold mt-2 mb-3 display-6">Una solución para cada tipo de viajero</h2>
+                    <p class="text-muted">
+                        <strong>Traveler</strong> nace con un propósito claro: ser la respuesta definitiva para cualquier persona que busque explorar Córdoba, sin importar la situación ni el tiempo disponible.
+                    </p>
+                    <p class="text-muted">
+                        Sabemos que no todos viajan de la misma manera. Ya sea que estés buscando una recomendación rápida de último minuto, echando un vistazo casual para el fin de semana o planificando minuciosamente tus próximas vacaciones con meses de antelación, nuestra plataforma está diseñada para adaptarse a tu ritmo.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="card border-0 shadow-sm p-3 h-100 bg-white">
+                                <div class="text-primary mb-2"><i class="bi bi-lightning-charge-fill fs-2"></i></div>
+                                <h4 class="h6 fw-bold">Respuestas Rápidas</h4>
+                                <p class="small text-muted mb-0">Para los que necesitan decidir al instante o están apurados.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card border-0 shadow-sm p-3 h-100 bg-white">
+                                <div class="text-primary mb-2"><i class="bi bi-eye-fill fs-2"></i></div>
+                                <h4 class="h6 fw-bold">Exploración Libre</h4>
+                                <p class="small text-muted mb-0">Para quien busca inspiración o curiosear opciones.</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="card border-0 shadow-sm p-3 h-100 bg-white">
+                                <div class="text-primary mb-2"><i class="bi bi-calendar-week-fill fs-2"></i></div>
+                                <h4 class="h6 fw-bold">Planificación Detallada</h4>
+                                <p class="small text-muted mb-0">Herramientas completas para armar itinerarios y viajes con anticipación.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- SECCIÓN EQUIPO -->
     <section class="py-5">
-        <div class="container">
+        <div class="container py-3">
+            <div class="text-center mb-5">
+                <span class="text-uppercase text-primary fw-bold">NUESTRO EQUIPO</span>
+                <h2 class="fw-bold mt-1 display-6">Los creadores de Traveler</h2>
+                <p class="text-muted col-lg-6 mx-auto">
+                    Detrás de la plataforma hay un equipo apasionado por la tecnología y el turismo local.
+                </p>
+            </div>
+
             <div class="row g-4 justify-content-center">
                 {% for integrante in integrantes %}
                 <div class="col-md-6 col-lg-4">
