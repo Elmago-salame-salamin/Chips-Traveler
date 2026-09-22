@@ -4,174 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traveler - Descubrí Córdoba</title>
-
-    <!-- Bootstrap 5 CSS -->
+    <!-- The <head> contains page information and external resources. -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
-
-    <!-- =====================================================
-         NAVBAR
-    ===================================================== -->
+    <!-- The <nav> contains the website navigation menu. -->
     <nav class="navbar navbar-expand-lg navbar-traveler">
         <div class="container">
             <a class="navbar-brand logo" href="{{ url_for('home') }}">
                 <span class="logo-icon"><i class="bi bi-compass"></i></span>
                 <span>Traveler</span>
             </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            <!-- The <div> contains the responsive navigation menu. -->
             <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- The <ul> creates an unordered list. -->
                 <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <!-- The <li> defines an individual item inside a list. -->
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('home') }}">Inicio</a>
+                        <!-- The <a> creates a hyperlink to another page or section. -->
+                        <a class="nav-link active" href="{{ url_for('home') }}">
+                            Inicio
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('lugares') }}">Explorar lugares</a>
+                        <a class="nav-link" href="{{ url_for('lugares') }}">
+                            Explorar lugares
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#categorias">Categorías</a>
+                        <a class="nav-link" href="#categorias">
+                            Categorías
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('sobre_nosotros') }}">Sobre nosotros</a>
+                        <a class="nav-link" href="{{ url_for('sobre_nosotros') }}">
+                            Sobre nosotros
+                        </a>
                     </li>
-
                     {% if session.get('usuario_id') %}
                         <li class="nav-item ms-lg-3">
-                            <a href="{{ url_for('perfil') }}" class="d-flex align-items-center text-decoration-none text-white fw-bold">
-                                <img src="{{ url_for('static', filename='uploads/' + session.get('usuario_foto', 'default_avatar.png')) }}" 
-                                     alt="Foto de perfil" 
-                                     class="rounded-circle me-2" 
+                            <a href="{{ url_for('perfil') }}"
+                               class="d-flex align-items-center text-decoration-none text-white fw-bold">
+                                <img src="{{ url_for('static', filename='uploads/' + session.get('usuario_foto', 'default_avatar.png')) }}"
+                                     alt="Foto de perfil"
+                                     class="rounded-circle me-2"
                                      style="width: 38px; height: 38px; object-fit: cover; border: 2px solid #ffffff;">
                                 <span>{{ session.get('usuario_nombre') }}</span>
                             </a>
                         </li>
                     {% else %}
                         <li class="nav-item ms-lg-3">
-                            <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-login me-2">Iniciar sesión</a>
+                            <a href="{{ url_for('login') }}"
+                               class="btn btn-outline-light btn-login me-2">
+                                Iniciar sesión
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url_for('registro') }}" class="btn btn-primary">Registrarse</a>
+                            <a href="{{ url_for('registro') }}"
+                               class="btn btn-primary">
+                                Registrarse
+                            </a>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-
-    <!-- Notificaciones del sistema (Flash Messages) -->
+    <!-- The <div> contains temporary messages and notifications. -->
     <div class="container my-3">
         {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="flash-messages">
-              {% for message in messages %}
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="alert alert-info alert-dismissible fade show"
+                             role="alert">
+                            {{ message }}
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="alert"
+                                    aria-label="Close">
+                            </button>
+                        </div>
+                    {% endfor %}
                 </div>
-              {% endfor %}
-            </div>
-          {% endif %}
+            {% endif %}
         {% endwith %}
     </div>
-
-    <!-- =====================================================
-         CONTENIDO PRINCIPAL
-    ===================================================== -->
+    <!-- The <main> contains the main content of the webpage. -->
     <main>
-        <!-- HERO -->
+        <!-- The <section> contains the introduction and search tool. -->
         <section class="hero">
             <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <div class="row">
                     <div class="col-lg-8">
-                        <span class="hero-tag">DESCUBRÍ CÓRDOBA</span>
-                        <h1>Encontrá tu próximo <span>lugar favorito</span></h1>
+                        <span class="hero-tag">
+                            DESCUBRÍ CÓRDOBA
+                        </span>
+                        <h1>
+                            Encontrá tu próximo
+                            <span>lugar favorito</span>
+                        </h1>
                         <p class="hero-description">
-                            Hoteles, restaurantes, atracciones y experiencias para disfrutar de Córdoba.
+                            Hoteles, restaurantes, atracciones y experiencias
+                            para disfrutar de Córdoba.
                         </p>
                     </div>
                 </div>
-
-                <!-- BUSCADOR -->
+                <!-- The search box allows users to search for places. -->
                 <div class="search-box">
                     <div class="row g-0">
                         <div class="col-lg-4 search-field">
-                            <label><i class="bi bi-search"></i> ¿Qué estás buscando?</label>
+                            <label>
+                                <i class="bi bi-search"></i>
+                                ¿Qué estás buscando?
+                            </label>
                             <select class="form-select">
-                                <option selected>Elegí un tipo de lugar</option>
+                                <option selected>
+                                    Elegí un tipo de lugar
+                                </option>
                                 <option>Hoteles</option>
                                 <option>Restaurantes</option>
                                 <option>Atracciones</option>
                             </select>
                         </div>
-
                         <div class="col-lg-3 search-field">
-                            <label><i class="bi bi-geo-alt"></i> Ubicación</label>
-                            <input type="text" class="form-control" placeholder="Córdoba">
+                            <label>
+                                <i class="bi bi-geo-alt"></i>
+                                Ubicación
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Córdoba">
                         </div>
-
                         <div class="col-lg-3 search-field">
-                            <label><i class="bi bi-calendar3"></i> Fecha</label>
-                            <input type="date" class="form-control">
+                            <label>
+                                <i class="bi bi-calendar3"></i>
+                                Fecha
+                            </label>
+                            <input type="date"
+                                   class="form-control">
                         </div>
-
                         <div class="col-lg-2 search-button-container">
-                            <a href="{{ url_for('lugares') }}" class="btn search-button">
-                                Buscar <i class="bi bi-arrow-right"></i>
+                            <a href="{{ url_for('lugares') }}"
+                               class="btn search-button">
+                                Buscar
+                                <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- CATEGORÍAS -->
+        <!-- The <section> contains the different place categories. -->
         <section class="categories-section" id="categorias">
             <div class="container">
                 <div class="section-heading">
                     <span>EXPLORÁ CÓRDOBA</span>
                     <h2>¿Qué estás buscando?</h2>
-                    <p>Encontrá el lugar perfecto para tu próxima salida.</p>
+                    <p>
+                        Encontrá el lugar perfecto para tu próxima salida.
+                    </p>
                 </div>
-
+                <!-- The hotel category shows hotel options. -->
                 <div class="row g-4">
                     <div class="col-md-4">
-                        <a href="{{ url_for('lugares', categoria='hotel') }}" class="category-card">
-                            <div class="category-icon"><i class="bi bi-building"></i></div>
+                        <a href="{{ url_for('lugares', categoria='hotel') }}"
+                           class="category-card">
+                            <div class="category-icon">
+                                <i class="bi bi-building"></i>
+                            </div>
                             <div>
                                 <h3>Hoteles</h3>
-                                <p>Encontrá el alojamiento ideal para tu estadía.</p>
+                                <p>
+                                    Encontrá el alojamiento ideal para tu estadía.
+                                </p>
                             </div>
                             <i class="bi bi-arrow-right category-arrow"></i>
                         </a>
                     </div>
-
+                    <!-- The restaurant category shows restaurant options. -->
                     <div class="col-md-4">
-                        <a href="{{ url_for('lugares', categoria='restaurante') }}" class="category-card">
-                            <div class="category-icon"><i class="bi bi-cup-hot"></i></div>
+                        <a href="{{ url_for('lugares', categoria='restaurante') }}"
+                           class="category-card">
+                            <div class="category-icon">
+                                <i class="bi bi-cup-hot"></i>
+                            </div>
                             <div>
                                 <h3>Restaurantes</h3>
-                                <p>Descubrí nuevos sabores y lugares para comer.</p>
+                                <p>
+                                    Descubrí nuevos sabores y lugares para comer.
+                                </p>
                             </div>
                             <i class="bi bi-arrow-right category-arrow"></i>
                         </a>
                     </div>
-
+                    <!-- The attraction category shows places to visit. -->
                     <div class="col-md-4">
-                        <a href="{{ url_for('lugares', categoria='atraccion') }}" class="category-card">
-                            <div class="category-icon"><i class="bi bi-stars"></i></div>
+                        <a href="{{ url_for('lugares', categoria='atraccion') }}"
+                           class="category-card">
+                            <div class="category-icon">
+                                <i class="bi bi-stars"></i>
+                            </div>
                             <div>
                                 <h3>Atracciones</h3>
-                                <p>Conocé parques y lugares para disfrutar.</p>
+                                <p>
+                                    Conocé parques y lugares para disfrutar.
+                                </p>
                             </div>
                             <i class="bi bi-arrow-right category-arrow"></i>
                         </a>
@@ -179,8 +225,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- DESTACADOS -->
+        <!-- The <section> contains recommended places. -->
         <section class="featured-section">
             <div class="container">
                 <div class="section-heading featured-heading">
@@ -188,61 +233,99 @@
                         <span>RECOMENDADOS</span>
                         <h2>Lugares para descubrir</h2>
                     </div>
-                    <a href="{{ url_for('lugares') }}" class="see-all">
-                        Ver todos <i class="bi bi-arrow-right"></i>
+                    <a href="{{ url_for('lugares') }}"
+                       class="see-all">
+                        Ver todos
+                        <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-
+                <!-- The hotel card shows information about a hotel. -->
                 <div class="row g-4">
-                    <!-- TARJETA 1 -->
                     <div class="col-md-6 col-lg-4">
                         <div class="featured-card">
                             <div class="featured-image hotel-image">
-                                <span class="featured-badge">Hotel</span>
+                                <span class="featured-badge">
+                                    Hotel
+                                </span>
                                 <i class="bi bi-building featured-icon"></i>
                             </div>
                             <div class="featured-info">
-                                <h3>La Casa del Ceibo</h3>
-                                <p class="location"><i class="bi bi-geo-alt"></i> Córdoba, Argentina</p>
+                                <h3>
+                                    La Casa del Ceibo
+                                </h3>
+                                <p class="location">
+                                    <i class="bi bi-geo-alt"></i>
+                                    Córdoba, Argentina
+                                </p>
                                 <div class="featured-footer">
-                                    <span class="rating"><i class="bi bi-star-fill"></i> 4.8</span>
-                                    <a href="/lugar/1">Ver lugar <i class="bi bi-arrow-right"></i></a>
+                                    <span class="rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        4.8
+                                    </span>
+                                    <a href="/lugar/1">
+                                        Ver lugar
+                                        <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- TARJETA 2 -->
+                    <!-- The restaurant card shows information about a restaurant. -->
                     <div class="col-md-6 col-lg-4">
                         <div class="featured-card">
                             <div class="featured-image restaurant-image">
-                                <span class="featured-badge">Restaurante</span>
+                                <span class="featured-badge">
+                                    Restaurante
+                                </span>
                                 <i class="bi bi-cup-hot featured-icon"></i>
                             </div>
                             <div class="featured-info">
-                                <h3>Santa Calma</h3>
-                                <p class="location"><i class="bi bi-geo-alt"></i> Córdoba, Argentina</p>
+                                <h3>
+                                    Santa Calma
+                                </h3>
+                                <p class="location">
+                                    <i class="bi bi-geo-alt"></i>
+                                    Córdoba, Argentina
+                                </p>
                                 <div class="featured-footer">
-                                    <span class="rating"><i class="bi bi-star-fill"></i> 4.7</span>
-                                    <a href="/lugar/5">Ver lugar <i class="bi bi-arrow-right"></i></a>
+                                    <span class="rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        4.7
+                                    </span>
+                                    <a href="/lugar/5">
+                                        Ver lugar
+                                        <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- TARJETA 3 -->
+                    <!-- The attraction card shows information about an attraction. -->
                     <div class="col-md-6 col-lg-4">
                         <div class="featured-card">
                             <div class="featured-image park-image">
-                                <span class="featured-badge">Atracción</span>
+                                <span class="featured-badge">
+                                    Atracción
+                                </span>
                                 <i class="bi bi-water featured-icon"></i>
                             </div>
                             <div class="featured-info">
-                                <h3>Infinito Water Park</h3>
-                                <p class="location"><i class="bi bi-geo-alt"></i> Córdoba, Argentina</p>
+                                <h3>
+                                    Infinito Water Park
+                                </h3>
+                                <p class="location">
+                                    <i class="bi bi-geo-alt"></i>
+                                    Córdoba, Argentina
+                                </p>
                                 <div class="featured-footer">
-                                    <span class="rating"><i class="bi bi-star-fill"></i> 4.6</span>
-                                    <a href="/lugar/8">Ver lugar <i class="bi bi-arrow-right"></i></a>
+                                    <span class="rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        4.6
+                                    </span>
+                                    <a href="/lugar/8">
+                                        Ver lugar
+                                        <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -250,61 +333,90 @@
                 </div>
             </div>
         </section>
-
-        <!-- CTA -->
+        <!-- The CTA section links users to available places. -->
         <section class="cta-section">
             <div class="container">
                 <div class="cta-box">
                     <div>
-                        <span>TU PRÓXIMA EXPERIENCIA</span>
-                        <h2>Córdoba tiene mucho para ofrecer.</h2>
-                        <p>Explorá nuestros lugares y empezá a planificar tu próxima salida.</p>
+                        <span>
+                            TU PRÓXIMA EXPERIENCIA
+                        </span>
+                        <h2>
+                            Córdoba tiene mucho para ofrecer.
+                        </h2>
+                        <p>
+                            Explorá nuestros lugares y empezá a planificar
+                            tu próxima salida.
+                        </p>
                     </div>
-                    <a href="{{ url_for('lugares') }}" class="btn cta-button">
-                        Explorar lugares <i class="bi bi-arrow-right"></i>
+                    <a href="{{ url_for('lugares') }}"
+                       class="btn cta-button">
+                        Explorar lugares
+                        <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
             </div>
         </section>
     </main>
-
-    <!-- =====================================================
-         FOOTER
-    ===================================================== -->
+    <!-- The <footer> contains additional information and links. -->
     <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 mb-4">
                     <div class="footer-logo">
-                        <i class="bi bi-compass"></i> Traveler
+                        <i class="bi bi-compass"></i>
+                        Traveler
                     </div>
-                    <p>Tu guía para descubrir lugares, experiencias y actividades en Córdoba.</p>
+                    <p>
+                        Tu guía para descubrir lugares, experiencias
+                        y actividades en Córdoba.
+                    </p>
                 </div>
-
                 <div class="col-6 col-lg-3">
-                    <h4>Explorar</h4>
-                    <a href="{{ url_for('lugares') }}">Lugares</a>
-                    <a href="{{ url_for('lugares', categoria='hotel') }}">Hoteles</a>
-                    <a href="{{ url_for('lugares', categoria='restaurante') }}">Restaurantes</a>
-                    <a href="{{ url_for('lugares', categoria='atraccion') }}">Atracciones</a>
+                    <h4>
+                        Explorar
+                    </h4>
+                    <a href="{{ url_for('lugares') }}">
+                        Lugares
+                    </a>
+                    <a href="{{ url_for('lugares', categoria='hotel') }}">
+                        Hoteles
+                    </a>
+                    <a href="{{ url_for('lugares', categoria='restaurante') }}">
+                        Restaurantes
+                    </a>
+                    <a href="{{ url_for('lugares', categoria='atraccion') }}">
+                        Atracciones
+                    </a>
                 </div>
-
                 <div class="col-6 col-lg-4">
-                    <h4>Traveler</h4>
-                    <a href="{{ url_for('sobre_nosotros') }}">Sobre nosotros</a>
-                    <a href="/contacto">Contacto</a>
-                    <a href="/terminos-y-condiciones">Términos y condiciones</a>
+                    <h4>
+                        Traveler
+                    </h4>
+                    <a href="{{ url_for('sobre_nosotros') }}">
+                        Sobre nosotros
+                    </a>
+                    <a href="/contacto">
+                        Contacto
+                    </a>
+                    <a href="/terminos-y-condiciones">
+                        Términos y condiciones
+                    </a>
                 </div>
             </div>
             <hr>
             <div class="footer-bottom">
-                <span>© 2026 Traveler</span>
-                <span>Córdoba, Argentina</span>
+                <span>
+                    © 2026 Traveler
+                </span>
+                <span>
+                    Córdoba, Argentina
+                </span>
             </div>
         </div>
     </footer>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- The <script> adds interactive Bootstrap features. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
 </body>
 </html>
