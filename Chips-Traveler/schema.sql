@@ -1,8 +1,15 @@
 -- ==========================================
+-- ELIMINAR BASE DE DATOS EXISTENTE
+-- ==========================================
+
+DROP DATABASE IF EXISTS traveler;
+
+
+-- ==========================================
 -- CREAR BASE DE DATOS
 -- ==========================================
 
-CREATE DATABASE IF NOT EXISTS traveler
+CREATE DATABASE traveler
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
@@ -10,16 +17,41 @@ USE traveler;
 
 
 -- ==========================================
+-- TABLA DE USUARIOS
+-- ==========================================
+
+CREATE TABLE usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    foto_perfil VARCHAR(255) DEFAULT 'default_avatar.png',
+    acepto_terminos TINYINT(1) NOT NULL DEFAULT 0,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- ==========================================
 -- TABLA DE CLIENTES
 -- ==========================================
 
-CREATE TABLE IF NOT EXISTS clientes (
+CREATE TABLE clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+
+    id_usuario INT NOT NULL UNIQUE,
+
     nombre VARCHAR(100) NOT NULL,
     dni VARCHAR(20),
     telefono VARCHAR(30) NOT NULL,
     email VARCHAR(150),
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_usuario)
+        REFERENCES usuarios(id_usuario)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 
@@ -27,8 +59,9 @@ CREATE TABLE IF NOT EXISTS clientes (
 -- TABLA DE LUGARES
 -- ==========================================
 
-CREATE TABLE IF NOT EXISTS lugares (
+CREATE TABLE lugares (
     id_lugar INT AUTO_INCREMENT PRIMARY KEY,
+
     nombre VARCHAR(150) NOT NULL,
     categoria VARCHAR(50) NOT NULL,
     ubicacion VARCHAR(255) NOT NULL,
@@ -43,7 +76,7 @@ CREATE TABLE IF NOT EXISTS lugares (
 -- TABLA DE RESERVAS
 -- ==========================================
 
-CREATE TABLE IF NOT EXISTS reservas (
+CREATE TABLE reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
 
     id_cliente INT NOT NULL,
@@ -150,16 +183,3 @@ VALUES
     NULL,
     4.6
 );
-
--- English Comment: Create users table supporting authentication, profile customizations, and Terms acceptance logging.
-CREATE TABLE IF NOT EXISTS usuarios (
-    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    descripcion TEXT,
-    foto_perfil VARCHAR(255) DEFAULT 'default_avatar.png',
-    acepto_terminos TINYINT(1) NOT NULL DEFAULT 0,
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-

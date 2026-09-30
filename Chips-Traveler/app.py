@@ -326,6 +326,12 @@ def lugar(id):
 @app.route("/reserva/<int:id>")
 def reserva(id):
     """Display the reservation form for a selected place."""
+    
+    # English Comment: Users must be logged in before making a reservation.
+    if "usuario_id" not in session:
+        flash("Debes iniciar sesión para realizar una reserva.")
+        return redirect(url_for("login"))
+
     conexion = conectar_db()
 
     if conexion is None:
@@ -364,18 +370,27 @@ def reserva(id):
 # ==========================================
 # SAVE RESERVATION
 # ==========================================
+# ==========================================
+# SAVE RESERVATION
+# ==========================================
+
 @app.route("/reserva/<int:id>", methods=["POST"])
 def guardar_reserva(id):
-    """Process POST request, create/update client record, and store reservation."""
-    id_cliente = request.form.get("id_cliente")
-    nombre = request.form.get("nombre")
-    email = request.form.get("email")
+    """Process reservation using the currently logged-in user."""
+
+    # English Comment: Only authenticated users can create reservations.
+    if "usuario_id" not in session:
+        flash("Debes iniciar sesión para realizar una reserva.")
+        return redirect(url_for("login"))
+
+    usuario_id = session["usuario_id"]
+
     telefono = request.form.get("telefono")
     fecha = request.form.get("fecha")
     personas = request.form.get("personas")
     comentario = request.form.get("comentario")
 
-    if not id_cliente or not nombre or not telefono or not fecha:
+    if not telefono or not fecha:
         return "Faltan datos obligatorios.", 400
 
     conexion = conectar_db()
@@ -386,6 +401,8 @@ def guardar_reserva(id):
     cursor = conexion.cursor(dictionary=True)
 
     try:
+
+        # English Comment: Verify that the selected place exists.
         cursor.execute("""
             SELECT id_lugar
             FROM lugares
@@ -397,26 +414,56 @@ def guardar_reserva(id):
         if lugar is None:
             return "Lugar no encontrado.", 404
 
+
+        # English Comment: Retrieve the logged-in user's information.
+        cursor.execute("""
+            SELECT
+                id_usuario,
+                nombre,
+                email
+            FROM usuarios
+            WHERE id_usuario = %s
+        """, (usuario_id,))
+
+        usuario = cursor.fetchone()
+
+        if usuario is None:
+            session.clear()
+            flash("La sesión de usuario no es válida.")
+            return redirect(url_for("login"))
+
+
+        # English Comment: Check whether the logged-in user already has a client profile.
         cursor.execute("""
             SELECT id_cliente
             FROM clientes
-            WHERE id_cliente = %s
-        """, (id_cliente,))
+            WHERE id_usuario = %s
+        """, (usuario_id,))
 
         cliente = cursor.fetchone()
 
+
+        # English Comment: Create a client profile if this is the user's first reservation.
         if cliente is None:
+
             cursor.execute("""
                 INSERT INTO clientes
-                (id_cliente, nombre, telefono, email)
+                (id_usuario, nombre, telefono, email)
                 VALUES (%s, %s, %s, %s)
             """, (
-                id_cliente,
-                nombre,
+                usuario_id,
+                usuario["nombre"],
                 telefono,
-                email
+                usuario["email"]
             ))
+
+            id_cliente = cursor.lastrowid
+
         else:
+
+            id_cliente = cliente["id_cliente"]
+
+            # English Comment: Update the client's contact information.
             cursor.execute("""
                 UPDATE clientes
                 SET nombre = %s,
@@ -424,12 +471,14 @@ def guardar_reserva(id):
                     email = %s
                 WHERE id_cliente = %s
             """, (
-                nombre,
+                usuario["nombre"],
                 telefono,
-                email,
+                usuario["email"],
                 id_cliente
             ))
 
+
+        # English Comment: Save the reservation linked to the authenticated client.
         cursor.execute("""
             INSERT INTO reservas
             (
@@ -448,15 +497,22 @@ def guardar_reserva(id):
             comentario
         ))
 
+
         conexion.commit()
 
+        flash("¡Reserva realizada correctamente!")
+
     except Exception as error:
+
         conexion.rollback()
+
         return f"Error al guardar la reserva: {error}", 500
 
     finally:
+
         cursor.close()
         conexion.close()
+
 
     return redirect(
         url_for(
